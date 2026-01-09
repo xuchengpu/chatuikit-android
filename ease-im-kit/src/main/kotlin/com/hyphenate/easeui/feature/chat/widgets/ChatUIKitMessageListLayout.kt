@@ -271,7 +271,7 @@ class ChatUIKitMessageListLayout @JvmOverloads constructor(
                 oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
             ) {
                 if (isFirstLoadData && loadDataType != ChatUIKitLoadDataType.SEARCH) {
-                    listScrollController.smoothScrollToBottom()
+                    listScrollController.scrollToBottom()
                 } else {
                     binding.messageList.removeOnLayoutChangeListener(this)
                 }

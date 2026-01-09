@@ -173,16 +173,28 @@ class ChatUIKitMessageListScrollAndDataController(
 
     private fun checkIfMoveToBottom(position: Int, layoutManager: LinearLayoutManager) {
         if (position < 0 || position >= adapter.itemCount) return
-        if (!rvList.canScrollVertically(1)) return
-        if (!isLastPosition(position) || !isFullScreen()) return
-        rvList.post {
-            val rvPosition: Int =
-                layoutManager.findLastVisibleItemPosition() - layoutManager.findFirstVisibleItemPosition()
-            if (rvList.childCount > rvPosition) {
-                val bottom = rvList.getChildAt(rvPosition).bottom
-                val height = rvList.height
-                layoutManager.scrollToPositionWithOffset(position, height - bottom)
-            }
+        if (!isLastPosition(position)) return
+        alignLastItemToBottom(position, layoutManager, 0)
+    }
+
+    private fun alignLastItemToBottom(position: Int, layoutManager: LinearLayoutManager, attempt: Int) {
+        if (attempt > 10) return
+
+        val targetView = layoutManager.findViewByPosition(position)
+        val rvHeight = rvList.height
+
+        if (targetView == null || rvHeight <= 0 || targetView.height <= 0) {
+            rvList.postDelayed({
+                alignLastItemToBottom(position, layoutManager, attempt + 1)
+            }, 50)
+            return
+        }
+
+        val itemHeight = targetView.height
+        // If the item height is larger than the recyclerview height, scroll to the bottom of the item.
+        if (itemHeight > rvHeight) {
+            val desiredOffset = rvHeight - itemHeight
+            layoutManager.scrollToPositionWithOffset(position, desiredOffset)
         }
     }
 
