@@ -42,11 +42,9 @@ class ChatUIKitMessageListScrollAndDataController(
                 if (recyclerViewLastHeight == 0) recyclerViewLastHeight = height
                 if (recyclerViewLastHeight != height) {
                     if (!adapter.mData.isNullOrEmpty()
-                        && rvList.canScrollVertically(1)
                         && loadDataType != ChatUIKitLoadDataType.SEARCH
-                        && isNeedScrollToBottomWhenChange
-                        && isCanAutoScrollToBottom) {
-                        smoothScrollToBottom()
+                        && isNeedScrollToBottomWhenChange) {
+                        scrollToBottom()
                     } else {
                         if (!isCanAutoScrollToBottom) {
                             scrollToRelativePosition(bottom, oldBottom)
