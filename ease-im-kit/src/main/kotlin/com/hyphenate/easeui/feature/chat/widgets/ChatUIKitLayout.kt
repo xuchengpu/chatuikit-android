@@ -725,7 +725,7 @@ class ChatUIKitLayout @JvmOverloads constructor(
         chatPinMessageController.initPinInfoView()
     }
 
-    fun loadData(msgId: String? = "", pageSize: Int = 10) {
+    fun loadData(msgId: String? = "", pageSize: Int = 15) {
         sendChannelAck()
         chatBinding.layoutChatMessage.loadData(msgId, pageSize)
         getInProgressMessages()

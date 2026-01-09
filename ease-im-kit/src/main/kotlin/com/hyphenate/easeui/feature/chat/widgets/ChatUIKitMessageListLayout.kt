@@ -180,6 +180,8 @@ class ChatUIKitMessageListLayout @JvmOverloads constructor(
 
         // Set not enable to load more.
         binding.messagesRefresh.setEnableLoadMore(false)
+
+        binding.messagesRefresh.setEnableScrollContentWhenRefreshed(false)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -334,7 +336,7 @@ class ChatUIKitMessageListLayout @JvmOverloads constructor(
      * @param messageId When the loadDataType is history, the param needs to be set to search history message list.
      * @param pageSize If you want to change the amount of data pulled each time, you can set parameters.
      */
-    fun loadData(messageId: String? = "", pageSize: Int = 10) {
+    fun loadData(messageId: String? = "", pageSize: Int = 15) {
         baseSearchMessageId = messageId
         viewModel?.pageSize = pageSize
         conversation?.run {
